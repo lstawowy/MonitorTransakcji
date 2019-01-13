@@ -1,6 +1,6 @@
-package com.spring.template.services;
+package com.spring.monitor.services;
 
-import com.spring.template.resource.TransactionResource;
+import com.spring.monitor.resource.TransactionResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

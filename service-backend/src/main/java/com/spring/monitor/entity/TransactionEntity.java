@@ -1,4 +1,4 @@
-package com.spring.template.entity;
+package com.spring.monitor.entity;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;

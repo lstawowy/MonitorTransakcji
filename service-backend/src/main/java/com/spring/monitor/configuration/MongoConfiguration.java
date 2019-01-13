@@ -1,4 +1,4 @@
-package com.spring.template.configuration;
+package com.spring.monitor.configuration;
 
 import com.mongodb.client.MongoDatabase;
 import org.springframework.beans.factory.annotation.Autowired;

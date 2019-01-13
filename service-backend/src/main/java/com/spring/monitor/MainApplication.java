@@ -1,7 +1,7 @@
-package com.spring.template;
+package com.spring.monitor;
 
-import com.spring.template.repository.TransactionRepository;
-import com.spring.template.resource.TransactionResource;
+import com.spring.monitor.repository.TransactionRepository;
+import com.spring.monitor.resource.TransactionResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

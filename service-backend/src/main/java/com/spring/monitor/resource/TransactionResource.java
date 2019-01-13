@@ -1,7 +1,7 @@
-package com.spring.template.resource;
+package com.spring.monitor.resource;
 
-import com.spring.template.entity.TransactionEntity;
-import com.spring.template.repository.TransactionRepository;
+import com.spring.monitor.entity.TransactionEntity;
+import com.spring.monitor.repository.TransactionRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

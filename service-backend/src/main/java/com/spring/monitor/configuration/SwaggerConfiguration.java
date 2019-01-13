@@ -1,4 +1,4 @@
-package com.spring.template.configuration;
+package com.spring.monitor.configuration;
 
 import static springfox.documentation.builders.PathSelectors.any;
 
@@ -16,7 +16,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@ComponentScan(basePackages = "com.spring.template")
+@ComponentScan(basePackages = "com.spring.monitor")
 @EnableSwagger2
 @EnableAutoConfiguration
 public class SwaggerConfiguration extends WebMvcConfigurationSupport {
