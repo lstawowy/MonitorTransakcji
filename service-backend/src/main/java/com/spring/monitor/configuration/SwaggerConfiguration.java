@@ -36,8 +36,8 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
    */
   private ApiInfo apiInfo() {
     ApiInfo apiInfo = new ApiInfo(
-        "News API",
-        "Mobile applications and beyond!",
+        "Monitors API",
+        "Implementacja monitora transakcji!",
         "0.0.1-SNAPSHOT",
         "https://helloreverb.com/terms/",
         "matt@raibledesigns.com",
@@ -58,8 +58,5 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
 
   private Predicate<String> getSwaggerPaths() {
     return any();
-//    return or(
-//        regex("/api.*"),
-//        regex("/test.*"));
   }
 }
