@@ -1,25 +1,33 @@
 package com.spring.monitor.entity;
 
+import com.spring.monitor.enums.EntityType;
+import com.spring.monitor.enums.TransactionStatus;
+import com.spring.monitor.enums.TransactionType;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-
+@Entity
 @lombok.Data
 public class TransactionEntity {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private ObjectId id;
 
-  private String firstName;
+  private Date transactionDate;
 
-  private String lastName;
+  private TransactionStatus status;
 
-  public TransactionEntity() {
-  }
+  private ObjectId entityId;
 
-  public TransactionEntity(String firstName, String lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
+  private TransactionType transactionType;
+
+  private EntityType entityType;
+
+  private Entity updatingEntity;
 
 }
