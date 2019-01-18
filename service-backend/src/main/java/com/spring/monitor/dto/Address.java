@@ -1,7 +1,7 @@
 package com.spring.monitor.dto;
 
 @lombok.Data
-public class AddressDto {
+public class Address {
 
   private String street;
 

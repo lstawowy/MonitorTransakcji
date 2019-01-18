@@ -12,4 +12,6 @@ public interface ClientRepository extends MongoRepository<ClientEntity, String> 
   List<ClientEntity> findByLastName(String lastName);
 
   ClientEntity findById(ObjectId id);
+
+  ClientEntity findByEmail(String email);
 }

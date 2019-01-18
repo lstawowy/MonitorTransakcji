@@ -1,6 +1,6 @@
 package com.spring.monitor.enums;
 
-public enum TransactionType {
+public enum OperationType {
   UPDATE,
   INSERT,
   DELETE
