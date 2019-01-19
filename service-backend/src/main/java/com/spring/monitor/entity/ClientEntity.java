@@ -3,7 +3,7 @@ package com.spring.monitor.entity;
 import com.spring.monitor.dao.ClientDao;
 import com.spring.monitor.dto.Address;
 import com.spring.monitor.dto.ClientDto;
-import java.util.Objects;
+import com.spring.monitor.mappers.StaticMapper;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +23,13 @@ public class ClientEntity {
   private Address address;
   @NotEmpty
   private String email;
+
+  private String firstName;
+
+  private String lastName;
+
+  private String phoneNumber;
+
 
   public ClientEntity(ObjectId id, String firstName, String lastName,
       Address address, String phoneNumber, String email) {
@@ -47,31 +54,12 @@ public class ClientEntity {
   public ClientEntity() {
   }
 
-  private String firstName;
-
-  private String lastName;
-
   public ClientEntity(ClientDto client) {
     ClientDao dao = new ClientDao(null);
     ClientEntity entity = dao.findByEmail(client.getEmail());
 
     this.id = entity != null ? entity.getId() : ObjectId.get();
-    fillEntity(client, entity);
-  }
-
-  private String phoneNumber;
-
-  private void fillEntity(ClientDto client, ClientEntity entity) {
-    this.address = client.getAddress() != null ? client.getAddress() : Objects
-        .requireNonNull(entity).getAddress();
-    this.firstName = client.getFirstName() != null ? client.getFirstName() : Objects
-        .requireNonNull(entity).getFirstName();
-    this.lastName = client.getLastName() != null ? client.getLastName() : Objects
-        .requireNonNull(entity).getLastName();
-    this.email = client.getEmail() != null ? client.getEmail() : Objects
-        .requireNonNull(entity).getEmail();
-    this.phoneNumber = client.getPhoneNumber() != null ? client.getPhoneNumber() : Objects
-        .requireNonNull(entity).getPhoneNumber();
+    StaticMapper.updateClientEntity(entity, client);
   }
 
 }

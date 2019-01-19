@@ -2,7 +2,6 @@ package com.spring.monitor;
 
 import com.spring.monitor.repository.AccountRepository;
 import com.spring.monitor.repository.ClientRepository;
-import com.spring.monitor.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -13,9 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MainApplication {
 
   @Autowired
-  private TransactionRepository transactionRepository;
-
-  @Autowired
   private AccountRepository accountRepository;
 
   @Autowired
@@ -24,6 +20,5 @@ public class MainApplication {
   public static void main(String[] args) {
     SpringApplication.run(MainApplication.class, args);
   }
-
 
 }

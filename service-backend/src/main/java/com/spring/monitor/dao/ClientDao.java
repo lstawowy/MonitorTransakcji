@@ -138,7 +138,8 @@ public class ClientDao implements IUnitOfWork<ClientEntity> {
 
   @Override
   public void clear() {
-
+    context = null;
+    rollbackContext = null;
   }
 
   private void rollbackInsert() {
