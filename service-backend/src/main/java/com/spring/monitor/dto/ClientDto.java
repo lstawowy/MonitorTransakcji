@@ -19,4 +19,10 @@ public class ClientDto {
   @NotEmpty
   private String email;
 
+  public ClientDto(String firstName, String lastName, String phoneNumber, String email) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.phoneNumber = phoneNumber;
+    this.email = email;
+  }
 }

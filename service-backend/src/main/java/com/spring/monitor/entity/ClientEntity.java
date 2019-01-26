@@ -1,9 +1,6 @@
 package com.spring.monitor.entity;
 
-import com.spring.monitor.dao.ClientDao;
 import com.spring.monitor.dto.Address;
-import com.spring.monitor.dto.ClientDto;
-import com.spring.monitor.mappers.StaticMapper;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,14 +49,6 @@ public class ClientEntity {
   }
 
   public ClientEntity() {
-  }
-
-  public ClientEntity(ClientDto client) {
-    ClientDao dao = new ClientDao(null);
-    ClientEntity entity = dao.findByEmail(client.getEmail());
-
-    this.id = entity != null ? entity.getId() : ObjectId.get();
-    StaticMapper.updateClientEntity(entity, client);
   }
 
 }
