@@ -1,12 +1,12 @@
-package com.spring.monitor.unitofwork;
+package unitofwork;
 
 public interface IUnitOfWork<T> {
 
   void registerNew(T entity);
 
-  void registerUpdated(T entity);
+  void registerUpdate(T entity);
 
-  void registerDeleted(T entity);
+  void registerDelete(T entity);
 
   void commit();
 
