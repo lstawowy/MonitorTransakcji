@@ -1,6 +1,8 @@
 package com.spring.monitor.dto;
 
-@lombok.Data
+import lombok.Data;
+
+@Data
 public class Address {
 
   private String street;

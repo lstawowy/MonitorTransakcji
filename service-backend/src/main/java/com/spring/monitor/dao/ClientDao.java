@@ -2,6 +2,7 @@ package com.spring.monitor.dao;
 
 import com.spring.monitor.entity.ClientEntity;
 import com.spring.monitor.repository.ClientRepository;
+import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import manager.TransactionManager;
@@ -17,9 +18,10 @@ public class ClientDao extends TransactionManager<ClientEntity> {
   @Autowired
   private ClientRepository repository;
 
+  @Autowired
   public ClientDao(
       MongoRepository<ClientEntity, String> repository) {
-    super(null, repository);
+    super(new HashMap<>(), repository);
     this.repository = (ClientRepository) repository;
   }
 

@@ -1,11 +1,10 @@
 package com.spring.monitor.dto;
 
-import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
+import lombok.Data;
 
 
-@Entity
-@lombok.Data
+@Data
 public class ClientDto {
 
   private String firstName;

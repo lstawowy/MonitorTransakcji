@@ -1,8 +1,8 @@
 package com.spring.monitor.resource;
 
 import com.spring.monitor.dao.ClientDao;
+import com.spring.monitor.dto.ClientDto;
 import com.spring.monitor.entity.ClientEntity;
-import com.spring.monitor.repository.ClientRepository;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
@@ -20,42 +20,52 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientResource {
 
   @Autowired
-  private ClientRepository clientRepository;
-
-  @Autowired
   private ClientDao dao;
 
   @ApiOperation(value = "Get all clients", nickname = "Get all clients")
-  @GetMapping(value = "/")
+  @GetMapping
   public List<ClientEntity> getAllClients() {
     return dao.findAll();
   }
 
   @ApiOperation(value = "Insert client", nickname = "Insert client")
-  @PostMapping(value = "/")
+  @PostMapping
   public void insertClient(@Valid @RequestBody ClientEntity entity) {
     dao.registerNew(entity);
   }
 
   @ApiOperation(value = "Modify client", nickname = "Modify client")
-  @PutMapping(value = "/")
+  @PutMapping
   public void modifyClient(@Valid @RequestBody ClientEntity entity) {
     dao.registerUpdate(entity);
   }
 
   @ApiOperation(value = "Delete client", nickname = "Delete client")
-  @DeleteMapping(value = "/")
+  @DeleteMapping
   public void deleteClient(@Valid @RequestBody ClientEntity entity) {
     dao.registerDelete(entity);
   }
 
-  @ApiOperation(value = "Commit changes", nickname = "Commit changes")
+  @PostMapping(value = "/dto")
+  public void insertClientFromDto(@Valid @RequestBody ClientDto dto) {
+    dao.registerNew(new ClientEntity(dto));
+  }
+
+  @PutMapping(value = "/dto")
+  public void modifyClientFromDto(@Valid @RequestBody ClientDto dto) {
+    dao.registerUpdate(new ClientEntity(dto));
+  }
+
+  @DeleteMapping(value = "/dto")
+  public void deleteClientFromDto(@Valid @RequestBody ClientDto dto) {
+    dao.registerDelete(new ClientEntity(dto));
+  }
+
   @PostMapping(value = "/commit")
   public void commit() {
     dao.commit();
   }
 
-  @ApiOperation(value = "Rollback changes", nickname = "Rollback changes")
   @PostMapping(value = "/rollback")
   public void rollback() {
     dao.rollback();
