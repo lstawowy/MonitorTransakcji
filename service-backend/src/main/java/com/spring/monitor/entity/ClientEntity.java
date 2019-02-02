@@ -2,17 +2,19 @@ package com.spring.monitor.entity;
 
 import com.spring.monitor.dto.Address;
 import com.spring.monitor.dto.ClientDto;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotEmpty;
 import lombok.Data;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
-
+@Entity
 @Data
 public class ClientEntity {
 
   @Id
-  private ObjectId id;
+  @GeneratedValue
+  private String id;
 
   private Address address;
   @NotEmpty
@@ -28,7 +30,7 @@ public class ClientEntity {
   public ClientEntity() {
   }
 
-  public ClientEntity(ObjectId id, String firstName, String lastName,
+  public ClientEntity(String id, String firstName, String lastName,
       Address address, String phoneNumber, String email) {
     this.id = id;
     this.firstName = firstName;
@@ -39,7 +41,6 @@ public class ClientEntity {
   }
 
   public ClientEntity(ClientDto dto) {
-    this.id = ObjectId.get();
     this.firstName = dto.getFirstName();
     this.lastName = dto.getLastName();
     this.address = dto.getAddress();

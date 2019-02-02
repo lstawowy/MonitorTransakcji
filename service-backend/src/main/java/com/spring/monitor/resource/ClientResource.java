@@ -1,6 +1,6 @@
 package com.spring.monitor.resource;
 
-import com.spring.monitor.dao.ClientDao;
+import com.spring.monitor.dao.MongoClientDao;
 import com.spring.monitor.dto.ClientDto;
 import com.spring.monitor.entity.ClientEntity;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientResource {
 
   @Autowired
-  private ClientDao dao;
+  private MongoClientDao dao;
 
   @ApiOperation(value = "Get all clients", nickname = "Get all clients")
   @GetMapping

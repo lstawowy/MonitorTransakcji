@@ -1,28 +1,29 @@
 package com.spring.monitor.dao;
 
 import com.spring.monitor.entity.ClientEntity;
-import com.spring.monitor.repository.ClientRepository;
+import com.spring.monitor.repository.MongoClientRepository;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import manager.TransactionManager;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
+import strategy.MongoStrategy;
 
 @Slf4j
 @Component
-public class ClientDao extends TransactionManager<ClientEntity> {
+public class MongoClientDao extends TransactionManager<ClientEntity> {
 
   @Autowired
-  private ClientRepository repository;
+  private MongoClientRepository repository;
 
   @Autowired
-  public ClientDao(
+  public MongoClientDao(
       MongoRepository<ClientEntity, String> repository) {
-    super(new HashMap<>(), repository);
-    this.repository = (ClientRepository) repository;
+    super(new HashMap<>(), new MongoStrategy<>(repository));
+    this.repository = (MongoClientRepository) repository;
   }
 
   public List<ClientEntity> findAll() {
@@ -30,7 +31,7 @@ public class ClientDao extends TransactionManager<ClientEntity> {
     return repository.findAll();
   }
 
-  public ClientEntity findById(ObjectId id) {
+  public Optional<ClientEntity> findById(String id) {
     log.info("Finding client by id");
     return repository.findById(id);
   }
