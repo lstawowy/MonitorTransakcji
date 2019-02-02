@@ -2,46 +2,45 @@ package manager;
 
 import enums.OperationType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import strategy.IStrategy;
 import unitofwork.IUnitOfWork;
 
 @Slf4j
-public class TransactionManager<E> implements IUnitOfWork<E> {
+public class TransactionManager<T> implements IUnitOfWork<T> {
 
-  private Map<OperationType, List<E>> context;
+  private Map<OperationType, List<T>> context;
+  private IStrategy<T> strategy;
+  private List<T> previousState;
 
-  private MongoRepository<E, String> repository;
-  private List<E> previousState;
-
-  public TransactionManager(Map<OperationType, List<E>> context,
-      MongoRepository<E, String> repository) {
-    this.repository = repository;
-    this.context = context;
-
+  public TransactionManager(Map<OperationType, List<T>> context,
+      IStrategy<T> strategy) {
+    this.strategy = strategy;
+    this.context = context.isEmpty() ? new HashMap<>() : context;
   }
 
-  public void registerNew(E entity) {
+  public void registerNew(T entity) {
     log.info("Registering new entity: ", entity);
     register(OperationType.INSERT, entity);
   }
 
-  public void registerUpdate(E entity) {
+  public void registerUpdate(T entity) {
     log.info("Registering updated entity: ", entity);
     register(OperationType.UPDATE, entity);
   }
 
-  public void registerDelete(E entity) {
+  public void registerDelete(T entity) {
     log.info("Registering deleted entity: ", entity);
     register(OperationType.DELETE, entity);
   }
 
-  private void register(OperationType operation, E entity) {
-    List<E> entities = context.get(operation);
-    if (entities == null) {
-      entities = new ArrayList<E>();
+  private void register(OperationType operation, T entity) {
+    List<T> entities = context.get(operation);
+    if (entities.isEmpty()) {
+      entities = new ArrayList<>();
     }
     entities.add(entity);
     context.put(operation, entities);
@@ -49,61 +48,59 @@ public class TransactionManager<E> implements IUnitOfWork<E> {
 
   public void commit() {
     log.info("Commiting changes");
-    if (context == null || context.size() == 0) {
-      return;
-    }
-    previousState = repository.findAll();
+    previousState = strategy.findAll();
     log.info("Commit started");
     try {
-      if (context.containsKey(OperationType.INSERT)) {
-        commitInsert();
-      }
-
-      if (context.containsKey(OperationType.UPDATE)) {
-        commitModify();
-      }
-      if (context.containsKey(OperationType.DELETE)) {
-        commitDelete();
-      }
+      handleInsert();
+      handleModify();
+      handleDelete();
     } catch (Exception e) {
-      log.error("Exception found, rolling back", e);
+      log.error("Exception found during commit, rolling back", e);
       this.rollback();
     }
     log.info("Commit finished.");
   }
 
-  private void commitInsert() {
-    List<E> entitiesInserted = context.get(OperationType.INSERT);
-    for (E entity : entitiesInserted) {
-      log.info("Saving entity.", entity.toString());
-      repository.insert(entity);
+  private void handleInsert() {
+    if (context.containsKey(OperationType.INSERT)) {
+      List<T> entitiesInserted = context.get(OperationType.INSERT);
+      strategy.insertEntities(entitiesInserted);
     }
   }
 
-  private void commitModify() {
-    List<E> entitiesModified = context.get(OperationType.UPDATE);
-    for (E entity : entitiesModified) {
-      log.info("Modifying entity.", entity.toString());
-      repository.save(entity);
+  private void handleModify() {
+    if (context.containsKey(OperationType.UPDATE)) {
+      List<T> entitiesModified = context.get(OperationType.UPDATE);
+      strategy.modifyEntities(entitiesModified);
     }
   }
 
-  private void commitDelete() {
-    List<E> clientsDeleted = context.get(OperationType.DELETE);
-    for (E entity : clientsDeleted) {
-      log.info("Deleting entity.", entity.toString());
-      repository.delete(entity);
+  private void handleDelete() {
+    if (context.containsKey(OperationType.DELETE)) {
+      List<T> clientsDeleted = context.get(OperationType.DELETE);
+      strategy.deleteEntities(clientsDeleted);
     }
   }
 
   public void rollback() {
     log.info("Rollback changes");
-    repository.saveAll(previousState);
+    try {
+      strategy.saveAll(previousState);
+      context = new HashMap<>();
+    } catch (Exception e) {
+      log.error("Error occured during rollback!", e);
+    }
     log.info("Rollback finished.");
   }
 
   public void clear() {
-    context = null;
-    previousState = repository.findAll();
+    log.info("Clear transaction manager");
+    try {
+      context = new HashMap<>();
+      previousState = strategy.findAll();
+    } catch (Exception e) {
+      log.error("Error occured during clear! Is this even possible?", e);
+    }
+    log.info("Clear transaction manager");
   }
 }
