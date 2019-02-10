@@ -6,60 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Accounts",
-			"item": [
-				{
-					"name": "Get all accounts",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}{{port}}/accounts/",
-							"host": [
-								"{{host}}{{port}}"
-							],
-							"path": [
-								"accounts",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Transactions",
-			"item": [
-				{
-					"name": "Get all transactions",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{host}}{{port}}/transactions/",
-							"host": [
-								"{{host}}{{port}}"
-							],
-							"path": [
-								"transactions",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Clients",
 			"item": [
 				{
@@ -108,6 +54,120 @@
 							"path": [
 								"clients",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify Client",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/clients/",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"clients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/clients/",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"clients",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Commit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/commit",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"commit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rollback",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/commit",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"commit"
 							]
 						}
 					},
