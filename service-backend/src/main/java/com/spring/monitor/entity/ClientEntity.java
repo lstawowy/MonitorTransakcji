@@ -4,7 +4,6 @@ import com.spring.monitor.dto.Address;
 import com.spring.monitor.dto.ClientDto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -17,7 +16,7 @@ public class ClientEntity {
   private String id;
 
   private Address address;
-  @NotEmpty
+
   private String email;
 
   private String firstName;

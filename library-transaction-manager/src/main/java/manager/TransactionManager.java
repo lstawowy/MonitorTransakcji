@@ -39,7 +39,7 @@ public class TransactionManager<T> implements IUnitOfWork<T> {
 
   private void register(OperationType operation, T entity) {
     List<T> entities = context.get(operation);
-    if (entities.isEmpty()) {
+    if (entities==null) {
       entities = new ArrayList<>();
     }
     entities.add(entity);
