@@ -20,8 +20,7 @@ public class JpaClientDao extends TransactionManager<ClientEntity> {
   private JpaClientRepository repository;
 
   @Autowired
-  public JpaClientDao(
-      JpaRepository<ClientEntity, String> repository) {
+  public JpaClientDao(JpaRepository<ClientEntity, String> repository) {
     super(new HashMap<>(), new JpaStrategy(repository));
     this.repository = (JpaClientRepository) repository;
   }

@@ -2,28 +2,34 @@ package com.spring.monitor.entity;
 
 import com.spring.monitor.dto.Address;
 import com.spring.monitor.dto.ClientDto;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.GenericGenerator;
 
-@Entity
 @Data
+@Entity
+@Table(name="clients")
 public class ClientEntity {
 
-  @Id
-  @GeneratedValue
+  @Id @GeneratedValue(generator="system-uuid")
+  @GenericGenerator(name="system-uuid", strategy = "uuid")
+  @Column(name="id", nullable=false)
   private String id;
 
-  private Address address;
-  @NotEmpty
+  @Column(name="email", nullable=false)
   private String email;
 
+  @Column(name="firstName", nullable=false)
   private String firstName;
 
+  @Column(name="lastName", nullable=false)
   private String lastName;
 
+  @Column(name="phoneNumber")
   private String phoneNumber;
 
 
@@ -35,7 +41,6 @@ public class ClientEntity {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.address = address;
     this.phoneNumber = phoneNumber;
     this.email = email;
   }
@@ -43,7 +48,6 @@ public class ClientEntity {
   public ClientEntity(ClientDto dto) {
     this.firstName = dto.getFirstName();
     this.lastName = dto.getLastName();
-    this.address = dto.getAddress();
     this.phoneNumber = dto.getPhoneNumber();
     this.email = dto.getEmail();
   }
