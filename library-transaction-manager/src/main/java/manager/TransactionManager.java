@@ -20,6 +20,7 @@ public class TransactionManager<T> implements IUnitOfWork<T> {
       IStrategy<T> strategy) {
     this.strategy = strategy;
     this.context = context.isEmpty() ? new HashMap<>() : context;
+    this.previousState = strategy.findAll();
   }
 
   public T registerNew(T entity) {
