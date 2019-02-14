@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,51 +26,119 @@ public class ClientResource {
 
   @ApiOperation(value = "Get all clients", nickname = "Get all clients")
   @GetMapping
-  public List<ClientEntity> getAllClients() {
-    return dao.findAll();
+  public ResponseEntity<Object> getAllClients() {
+    List<ClientEntity> entities;
+    try {
+      entities = dao.findAll();
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entities,HttpStatus.OK);
   }
 
   @ApiOperation(value = "Insert client", nickname = "Insert client")
   @PostMapping
-  public void insertClient(@Valid @RequestBody ClientEntity entity) {
-    dao.registerNew(entity);
+  public ResponseEntity<ClientEntity> insertClient(@Valid @RequestBody ClientEntity entity) {
+    try {
+      dao.registerNew(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.CREATED);
   }
 
   @ApiOperation(value = "Modify client", nickname = "Modify client")
   @PutMapping
-  public void modifyClient(@Valid @RequestBody ClientEntity entity) {
-    dao.registerUpdate(entity);
+  public ResponseEntity<ClientEntity> modifyClient(@Valid @RequestBody ClientEntity entity) {
+    if (checkIfIdIsNull(entity)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    try {
+      dao.registerUpdate(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.OK);
   }
 
   @ApiOperation(value = "Delete client", nickname = "Delete client")
   @DeleteMapping
-  public void deleteClient(@Valid @RequestBody ClientEntity entity) {
-    dao.registerDelete(entity);
+  public ResponseEntity<ClientEntity> deleteClient(@Valid @RequestBody ClientEntity entity) {
+    if (checkIfIdIsNull(entity)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    try {
+      dao.registerDelete(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.OK);
   }
 
   @PostMapping(value = "/dto")
-  public void insertClientFromDto(@Valid @RequestBody ClientDto dto) {
-    dao.registerNew(new ClientEntity(dto));
+  public ResponseEntity<ClientEntity> insertClientFromDto(@Valid @RequestBody ClientDto dto) {
+    ClientEntity entity = new ClientEntity(dto);
+    try {
+      dao.registerNew(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.CREATED);
   }
 
   @PutMapping(value = "/dto")
-  public void modifyClientFromDto(@Valid @RequestBody ClientDto dto) {
-    dao.registerUpdate(new ClientEntity(dto));
+  public ResponseEntity<ClientEntity> modifyClientFromDto(@Valid @RequestBody ClientDto dto) {
+    ClientEntity entity = new ClientEntity(dto);
+    if (checkIfIdIsNull(entity)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    try {
+      dao.registerUpdate(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/dto")
-  public void deleteClientFromDto(@Valid @RequestBody ClientDto dto) {
-    dao.registerDelete(new ClientEntity(dto));
+  public ResponseEntity<ClientEntity> deleteClientFromDto(@Valid @RequestBody ClientDto dto) {
+    ClientEntity entity = new ClientEntity(dto);
+    if (checkIfIdIsNull(entity)) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    try {
+      dao.registerDelete(entity);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(entity,HttpStatus.OK);
+  }
+
+  private boolean checkIfIdIsNull(ClientEntity entity) {
+    if (entity.getId() == null) {
+      return true;
+    }
+    return false;
   }
 
   @PostMapping(value = "/commit")
-  public void commit() {
-    dao.commit();
+  public ResponseEntity<Object> commit() {
+    try {
+      dao.commit();
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @PostMapping(value = "/rollback")
-  public void rollback() {
-    dao.rollback();
+  public ResponseEntity<Object> rollback() {
+    try {
+      dao.rollback();
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
 
