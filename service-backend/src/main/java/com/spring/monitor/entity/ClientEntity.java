@@ -51,4 +51,15 @@ public class ClientEntity {
     this.phoneNumber = dto.getPhoneNumber();
     this.email = dto.getEmail();
   }
+
+  @Override
+  public String toString() {
+    return "ClientEntity{" +
+        "id='" + id + '\'' +
+        ", email='" + email + '\'' +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", phoneNumber='" + phoneNumber + '\'' +
+        '}';
+  }
 }

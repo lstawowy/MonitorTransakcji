@@ -22,24 +22,27 @@ public class TransactionManager<T> implements IUnitOfWork<T> {
     this.context = context.isEmpty() ? new HashMap<>() : context;
   }
 
-  public void registerNew(T entity) {
-    log.info("Registering new entity: ", entity);
+  public T registerNew(T entity) {
+    log.info("Registering new entity: " + entity.toString());
     register(OperationType.INSERT, entity);
+    return entity;
   }
 
-  public void registerUpdate(T entity) {
-    log.info("Registering updated entity: ", entity);
+  public T registerUpdate(T entity) {
+    log.info("Registering updated entity: " + entity.toString());
     register(OperationType.UPDATE, entity);
+    return entity;
   }
 
-  public void registerDelete(T entity) {
-    log.info("Registering deleted entity: ", entity);
+  public T registerDelete(T entity) {
+    log.info("Registering deleted entity: " + entity.toString());
     register(OperationType.DELETE, entity);
+    return entity;
   }
 
   private void register(OperationType operation, T entity) {
     List<T> entities = context.get(operation);
-    if (entities.isEmpty()) {
+    if (entities==null) {
       entities = new ArrayList<>();
     }
     entities.add(entity);

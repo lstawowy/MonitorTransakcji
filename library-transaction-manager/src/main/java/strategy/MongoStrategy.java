@@ -23,21 +23,21 @@ public class MongoStrategy<T> implements IStrategy<T> {
 
   public void insertEntities(List<T> entitiesInserted) {
     for (T entity : entitiesInserted) {
-      log.info("Saving entity.", entity.toString());
+      log.debug("Saving entity:" + entity.toString());
       repository.insert(entity);
     }
   }
 
   public void modifyEntities(List<T> entitiesModified) {
     for (T entity : entitiesModified) {
-      log.info("Modifying entity.", entity.toString());
+      log.debug("Modifying entity:" + entity.toString());
       repository.save(entity);
     }
   }
 
   public void deleteEntities(List<T> clientsDeleted) {
     for (T entity : clientsDeleted) {
-      log.info("Deleting entity.", entity.toString());
+      log.debug("Deleting entity:" + entity.toString());
       repository.delete(entity);
     }
   }
