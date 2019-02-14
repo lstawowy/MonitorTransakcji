@@ -2,11 +2,11 @@ package unitofwork;
 
 public interface IUnitOfWork<T> {
 
-  void registerNew(T entity);
+  T registerNew(T entity);
 
-  void registerUpdate(T entity);
+  T registerUpdate(T entity);
 
-  void registerDelete(T entity);
+  T registerDelete(T entity);
 
   void commit();
 
