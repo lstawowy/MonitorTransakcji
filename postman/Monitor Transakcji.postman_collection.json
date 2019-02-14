@@ -12,28 +12,20 @@
 					"name": "mongo",
 					"item": [
 						{
-							"name": "Get all clients",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{host}}{{port}}/clients",
-									"host": [
-										"{{host}}{{port}}"
-									],
-									"path": [
-										"clients"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Insert Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bf27028b-451d-4a8b-928b-f12471f4ad3b",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -63,6 +55,19 @@
 						},
 						{
 							"name": "Modify Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4367bff8-8cfb-47af-b122-487ab4401e93",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -75,7 +80,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+									"raw": "{\n\t\"id\": \"{{clientId}}\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
 								},
 								"url": {
 									"raw": "{{host}}{{port}}/clients/",
@@ -92,6 +97,19 @@
 						},
 						{
 							"name": "Delete Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8a402e93-777c-40a3-8dad-35ee59d912f9",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -104,7 +122,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+									"raw": "{\n\t\"id\": \"{{clientId}}\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
 								},
 								"url": {
 									"raw": "{{host}}{{port}}/clients/",
@@ -126,28 +144,20 @@
 					"name": "jpa",
 					"item": [
 						{
-							"name": "Get all clients",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{host}}{{port}}/clients",
-									"host": [
-										"{{host}}{{port}}"
-									],
-									"path": [
-										"clients"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Insert Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6415fe62-3020-4e9f-bdc0-0593a729c757",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -160,7 +170,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+									"raw": "{\n    \"firstName\": \"Stefan\",\n    \"lastName\": \"Kowalski\",\n    \"phoneNumber\": \"123\",\n    \"email\": \"a@example.com\"\n}"
 								},
 								"url": {
 									"raw": "{{host}}{{port}}/clients/",
@@ -177,6 +187,19 @@
 						},
 						{
 							"name": "Modify Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8041089d-96d0-4ea9-b9cc-d17ceb5eb2b7",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "PUT",
 								"header": [
@@ -189,7 +212,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+									"raw": "{\n    \"id\": \"{{clientId}}\",\n    \"firstName\": \"Stefan\",\n    \"lastName\": \"Kowalski\",\n    \"phoneNumber\": \"123\",\n    \"email\": \"a@example.com\"\n}"
 								},
 								"url": {
 									"raw": "{{host}}{{port}}/clients/",
@@ -206,6 +229,19 @@
 						},
 						{
 							"name": "Delete Client",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0558667a-f1d5-440d-938d-4361f16cd077",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"if (jsonData.id) postman.setGlobalVariable(\"clientId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "DELETE",
 								"header": [
@@ -218,7 +254,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "    {\n        \"id\": \"ff80818168e95c3a0168e95c5e630000\",\n        \"email\": \"a@example.com\",\n        \"firstName\": \"Stefan\",\n        \"lastName\": \"Kowalski\",\n        \"phoneNumber\": \"123\"\n    }"
+									"raw": "{\n    \"id\": \"{{clientId}}\",\n    \"email\": \"a@example.com\",\n    \"firstName\": \"Stefan\",\n    \"lastName\": \"Kowalski\",\n    \"phoneNumber\": \"123\"\n}"
 								},
 								"url": {
 									"raw": "{{host}}{{port}}/clients/",
@@ -237,6 +273,27 @@
 					"_postman_isSubFolder": true
 				},
 				{
+					"name": "Get all clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/clients",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Commit",
 					"request": {
 						"method": "POST",
@@ -250,7 +307,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{host}}{{port}}/clients/commit",
@@ -282,11 +339,12 @@
 							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
 						},
 						"url": {
-							"raw": "{{host}}{{port}}/rollback",
+							"raw": "{{host}}{{port}}/clients/rollback",
 							"host": [
 								"{{host}}{{port}}"
 							],
 							"path": [
+								"clients",
 								"rollback"
 							]
 						}
