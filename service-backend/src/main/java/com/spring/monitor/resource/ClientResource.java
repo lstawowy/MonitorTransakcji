@@ -140,6 +140,16 @@ public class ClientResource {
     }
     return new ResponseEntity<>(HttpStatus.OK);
   }
+
+  @PostMapping(value = "/clear")
+  public ResponseEntity<Object> clear() {
+    try {
+      dao.clear();
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }
 
 

@@ -297,14 +297,7 @@
 					"name": "Commit",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -323,20 +316,35 @@
 					"response": []
 				},
 				{
+					"name": "Clear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}{{port}}/clients/clear",
+							"host": [
+								"{{host}}{{port}}"
+							],
+							"path": [
+								"clients",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Rollback",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"58d1c36efb0cac4e15afd202\",\n\t\"firstName\": \"Stefan\",\n\t\"lastName\": \"Kowalski\",\n\t\"address\": {\n\t\t\"street\": \"street\",\n\t\t\"houseNumber\": 123,\n\t\t\"city\": \"city\",\n\t\t\"zipCode\": \"1122\"\n\t},\n\t\"phoneNumber\": \"123\",\n\t\"email\": \"a@example.com\"\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{host}}{{port}}/clients/rollback",
